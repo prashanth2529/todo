@@ -1,4 +1,4 @@
-# A Todo List demo App
+# A Todo App
 
 This is a todo list demo designed for Worshop.
 
