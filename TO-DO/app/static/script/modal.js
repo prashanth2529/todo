@@ -62,12 +62,12 @@ $(document).ready(function () {
         const state = $(this)
         const tID = state.data('source')
         const new_state = "Todo"
-        if (state.text() === "In Progress") {
+        if (state.text() === "Todo") {
+            new_state = "In Progress"
+        } else if (state.text() === "In Progress") {
             new_state = "Complete"
         } else if (state.text() === "Complete") {
-            new_state = "Todo"
-        } else if (state.text() === "Todo") {
-            new_state = "In Progress"
+            new_state = "Complete"
         }
 
         $.ajax({

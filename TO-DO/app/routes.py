@@ -11,9 +11,10 @@ def delete(task_id):
     try:
         db_helper.remove_task_by_id(task_id)
         result = {'success': True, 'response': 'Removed task'}
+        # for alterting table id and set it to previous value
+        db_helper.Alter_task_id(task_id)
     except:
         result = {'success': False, 'response': 'Something went wrong'}
-
     return jsonify(result)
 
 

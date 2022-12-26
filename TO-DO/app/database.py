@@ -6,14 +6,14 @@ from app import app
 
 mysql = MySQL(app)
 
+
 def fetch_todo() -> dict:
     """Reads all tasks listed in the todo table
 
     Returns:
         A list of dictionaries
     """
-    
-    
+
     cursor = mysql.connection.cursor()
     cursor.execute("Select * from tasks;")
     data = cursor.fetchall()
@@ -28,7 +28,6 @@ def fetch_todo() -> dict:
             "status": result[2]
         }
         todo_list.append(item)
-
     return todo_list
 
 
@@ -49,7 +48,6 @@ def update_task_entry(task_id: int, text: str) -> None:
     cursor.close()
 
 
-
 def update_status_entry(task_id: int, text: str) -> None:
     """Updates task status based on given `task_id`
 
@@ -61,15 +59,14 @@ def update_status_entry(task_id: int, text: str) -> None:
         None
     """
     cursor = mysql.connection.cursor()
-    query = 'Update tasks set status = "{}" where id = {};'.format(text, task_id)
+    query = 'Update tasks set status = "{}" where id = {};'.format(
+        text, task_id)
     cursor.execute(query)
     mysql.connection.commit()
     cursor.close()
 
-   
 
-
-def insert_new_task(text: str) ->  int:
+def insert_new_task(text: str) -> int:
     """Insert new task to todo table.
 
     Args:
@@ -85,42 +82,42 @@ def insert_new_task(text: str) ->  int:
     query_results = cursor.fetchall()
     query_results = [x for x in query_results]
     task_id = query_results[0][0]
-    
     mysql.connection.commit()
     cursor.close()
 
     return task_id
-   
-   
-  
-   
-
-    
 
 
 def remove_task_by_id(task_id: int) -> None:
     """ remove entries based on task ID """
-
     cursor = mysql.connection.cursor()
-    query = 'Delete From tasks where id={};'.format(task_id)
+    query = 'Delete From tasks where id={} '.format(task_id)
     cursor.execute(query)
     mysql.connection.commit()
     cursor.close()
 
-    
+
+# for altering Table and set the value to previous id
+def Alter_task_id(task_id: int) -> None:
+    """ set value back to same """
+    cursor = mysql.connection.cursor()
+    query = 'ALTER TABLE tasks AUTO_INCREMENT = 1'
+    cursor.execute(query)
+    mysql.connection.commit()
+    cursor.close()
 
 # mysql = MySQL(app)
- 
+
 # #Creating a connection cursor
 # cursor = mysql.connection.cursor()
- 
+
 # #Executing SQL Statements
 # cursor.execute(''' CREATE TABLE table_name(field1, field2...) ''')
 # cursor.execute(''' INSERT INTO table_name VALUES(v1,v2...) ''')
 # cursor.execute(''' DELETE FROM table_name WHERE condition ''')
- 
+
 # #Saving the Actions performed on the DB
 # mysql.connection.commit()
- 
+
 # #Closing the cursor
 # cursor.close()
