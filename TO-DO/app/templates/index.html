@@ -71,9 +71,11 @@
                 {% if item.status == "Todo" %}
                 <td><button type="button" class="btn btn-outline-secondary btn-sm state"
                         data-source="{{item.id}}">{{item.status}}</button></td>
-                {%elif item.status == "In Progress"%}
+                {%endif%}
+                {% if item.status == "In Progress" %}
                     <td><button type="button" class="btn btn-outline-warning btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
-                {% elif item.status == "Complete" %}
+                {%endif%}
+                {% if item.status == "Complete" %}
                     <td><button type="button" class="btn btn-outline-success btn-sm state" data-source="{{item.id}}">{{item.status}}</button></td>
                 {%endif%}
                 
