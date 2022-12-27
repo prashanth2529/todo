@@ -22,7 +22,6 @@ $(document).ready(function () {
         }
     })
 
-
     $('#submit-task').click(function () {
         const tID = $('#task-form-display').attr('taskID');
         console.log($('#task-modal').find('.form-control').val())
@@ -59,17 +58,17 @@ $(document).ready(function () {
     });
 
     $('.state').click(function () {
-        const state = $(this)
-        const tID = state.data('source')
-        const new_state = "Todo"
-        if (state.text() === "Todo") {
-            new_state = "In Progress"
-        } else if (state.text() === "In Progress") {
+        let state = $(this)
+        let tID = state.data('source')
+        let new_state
+        if (state.text() === "In Progress") {
             new_state = "Complete"
         } else if (state.text() === "Complete") {
             new_state = "Complete"
+        } else if (state.text() === "Todo") {
+            new_state = "In Progress"
         }
-
+    
         $.ajax({
             type: 'POST',
             url: '/edit/' + tID,
